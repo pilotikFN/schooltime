@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>schooltime | часы</title>
+  <link rel="stylesheet" href="clocks_style.css">
+  <!-- ниже подключили стили для мобильных устройств: в конце урока сможете поделиться проектом в социальных сетях без страха, что на телефоне друга или подруги будет выглядеть некрасиво -->
+  <meta name="google-site-verification" content="pIlrW5whSvYUIJ6Uojlhii5s-Pd0jSyo4M8XsUWfeEQ" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+    <div class="header">
+        <h1 style="font-weight: 500;">schooltime</h1>
+        <p class="time_view">14:15</p>
+    </div>
+    <div class="time">
+        <div class="time_inner">
+            <h1 id="current_les" style="font-size: 7em;">Идет 2 урок</h1>
+            <h2 id="time_left" style="font-size: 4.5rem; font-weight: 400;">(10 мин осталось)</h2>
+        </div>
+    </div>
+
+    <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        import { getDatabase, ref, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB9VevDhS1ZYOLuTDa3V758GOD-KUUOea8",
+          authDomain: "school-78eac.firebaseapp.com",
+          databaseURL: "https://school-78eac.firebaseio.com",
+          projectId: "school-78eac",
+          storageBucket: "school-78eac.appspot.com",
+          messagingSenderId: "361392127189",
+          appId: "1:361392127189:web:3bdf0c9fd9dfa0c7e6b65c",
+          measurementId: "G-3FB7KZG6CE"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = getDatabase(app);
+        const dbRef = ref(getDatabase());
+    
+        let current_data = 0
+        let days = ['пн','вт','ср','чт','пт','сб','вс']
+        let schedule_all
+    
+        //objects
+        let current_les = document.querySelector('#current_les')
+        let time_left = document.querySelector('#time_left')
+    
+        // days
+        let md = {}
+        let vt = {}
+        let sr = {}
+        let ch = {}
+        let pt = {}
+        let sb = {}
+        var nowtime = new Date();
+    
+        let date = new Date()
+        let cur_day = ((date.getDay() + 6) % 7);
+        let now_time
+    
+        current_data = cur_day
+        let current_day = cur_day
+            
+        function update_raspis() {
+          cur_day = ((date.getDay() + 6) % 7);
+    
+          // получаем всё расписание
+          get(child(dbRef, `schedule`)).then((snapshot) => {
+            if (snapshot.exists()) {
+              console.log(snapshot.val());
+    
+              schedule_all = snapshot.val();
+              let keys = Object.keys(schedule_all);
+    
+              // get times & names
+              let times = []
+              let names = []
+              let worktime
+    
+              let curr_time
+              let les_start
+              let les_end
+    
+              let next_ls
+    
+              function update_raspis_timer() {
+                current_les.textContent = 'Внеурочное время';
+                time_left.textContent = '';
+                time_left.style.display = 'none'
+    
+                console.log(cur_day);
+    
+                times = schedule_all[keys[cur_day]]['time'];
+                times = JSON.parse(times);
+    
+                let n_time = new Date();
+    
+                now_time = Number(n_time.getHours()) * 60 + Number(n_time.getMinutes())
+                
+                for (let i = 0; i < times.length; i++) {
+                  curr_time = times[i]
+                  les_start = Number(curr_time.slice(0, curr_time.indexOf('-')))
+                  les_end = Number(curr_time.slice(curr_time.indexOf('-') + 1, curr_time.length))
+    
+                  if (i != (times.length - 1)) {
+                    next_ls = times[i+1].slice(0, times[i+1].indexOf('-'))
+                    if (((les_start < now_time) || (les_start == now_time)) && (next_ls > now_time)) {
+                      current_les.textContent = 'Перемена'
+                      time_left.textContent = ('(' + (next_ls - now_time) + ' мин осталось)')
+                      time_left.style.display = 'inline'
+                    }
+                  }
+    
+                  if (((les_start < now_time) || (les_start == now_time)) && (les_end > now_time)) {
+                    current_les.textContent = ('Идет ' + (i + 1) + ' урок')
+                    time_left.textContent = ('(' + (les_end - now_time) + ' мин осталось)')
+                    time_left.style.display = 'inline'
+                  }
+                }
+              }
+    
+              update_raspis_timer()
+              
+              
+            } else {
+              console.log("No data available");
+            }
+          }).catch((error) => {
+            console.error(error);
+          });
+        }
+
+        function update_raspis_timer_local() {
+            current_les.textContent = 'Внеурочное время';
+            time_left.textContent = '';
+            time_left.style.display = 'none'
+
+            let keys = Object.keys(schedule_all);
+    
+            console.log(cur_day);
+    
+            let times = schedule_all[keys[cur_day]]['time'];
+            times = JSON.parse(times);
+
+            let n_time = new Date();
+
+            now_time = Number(n_time.getHours()) * 60 + Number(n_time.getMinutes())
+            
+            for (let i = 0; i < times.length; i++) {
+                let curr_time = times[i]
+                let les_start = Number(curr_time.slice(0, curr_time.indexOf('-')))
+                let les_end = Number(curr_time.slice(curr_time.indexOf('-') + 1, curr_time.length))
+
+                if (i != (times.length - 1)) {
+                    let next_ls = times[i+1].slice(0, times[i+1].indexOf('-'))
+                    if (((les_start < now_time) || (les_start == now_time)) && (next_ls > now_time)) {
+                      current_les.textContent = 'Перемена'
+                      time_left.textContent = ('(' + (next_ls - now_time) + ' мин осталось)')
+                      time_left.style.display = 'inline'
+                    }
+                }
+
+                if (((les_start < now_time) || (les_start == now_time)) && (les_end > now_time)) {
+                    current_les.textContent = ('Идет ' + (i + 1) + ' урок')
+                    time_left.textContent = ('(' + (les_end - now_time) + ' мин осталось)')
+                    time_left.style.display = 'inline'
+                }
+            }
+        }
+        
+        update_raspis();
+
+        setInterval(function () {
+            update_raspis_timer_local();
+            console.log('Updated')
+            let timer = new Date();
+
+            let time_view = document.querySelector('.time_view');
+
+            time_view.textContent = timer.getHours() + ':' + timer.getMinutes();
+        }, 1000);
+
+    </script>
+</body>
+</html>

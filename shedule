@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+  <!-- Yandex.RTB -->
+  <script>window.yaContextCb=window.yaContextCb||[]</script>
+  <script src="https://yandex.ru/ads/system/context.js" async></script>
+
+  <!-- Yandex.Metrika counter -->
+
+  <script type="text/javascript" >
+
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+
+
+    ym(88431857, "init", {
+
+        clickmap:true,
+
+        trackLinks:true,
+
+        accurateTrackBounce:true,
+
+        webvisor:true
+
+    });
+
+  </script>
+
+  <noscript><div><img src="https://mc.yandex.ru/watch/88431857" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+  <!-- /Yandex.Metrika counter -->
+
+
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>schooltime | расписание</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel"stylesheet" href="block.css" />
+
+  <!-- ниже подключили стили для мобильных устройств: в конце урока сможете поделиться проектом в социальных сетях без страха, что на телефоне друга или подруги будет выглядеть некрасиво -->
+
+  <link rel="icon" type="image" href="images/logo.png">
+
+  <!-- Yandex.RTB R-A-1653769-1 -->
+  <script>window.yaContextCb.push(()=>{
+    Ya.Context.AdvManager.render({
+      type: 'floorAd',
+      blockId: 'R-A-1653769-1'
+    })
+  })</script>
+
+</head>
+
+<body>
+
+    <div class="header_father">
+
+        <div class="header">
+
+            <p class="logo">schooltime</p>
+
+            <img
+
+                src="https://lh3.googleusercontent.com/pw/AM-JKLWdVsiD-j71iKTHB-jlgJ6nOHYoB8pg27D7NpJ2nlTHWk5ccE6bdYIzNA8IbqCQQcG4LMdXRPhTvjr6ICkhzUoHNjVRVSSpXsZI4uOTmR8L8ubIKL2NpjRhMwXWgTr_rohRNgqdL4ct_kZ227iqjXWw=s517-no?authuser=0"
+
+                alt="menu"
+
+                class="menu_btn"
+
+            />
+
+            <div style="text-align: end" class="btns_container">
+
+                <a href="index.html" class="down-btn button">Главная</a>
+
+                <a href="news" class="news-btn button">Новости</a>
+
+                <a href="hw" class="hw-btn button">Д/З</a>
+
+                <a href="shedule" class="raspis-btn button selected">Расписание</a>
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+  <div class="menu">
+
+    <div class="menu_inner">
+
+      <h1 style="margin-bottom: 16px;">Меню</h1>
+
+      <div class="menu_btns">
+
+        <p id="m_down" class="menu_in_button">Главная</p>
+
+        <p id="m_news" class="menu_in_button">Новости</p>
+
+        <p id="m_hw" class="menu_in_button">Д/З</p>
+
+        <p id="m_raspis" class="menu_in_button">Расписание</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  
+
+  <div class="raspis_timer_cont">
+
+    <div class="raspis_timer_inner">
+
+      <div class="raspis_text_cont">
+
+        <div style="font-weight: 700;" id="current_les">Загрузка...</div>
+
+        <div id="time_left">Загрузка...</div>
+
+      </div>
+
+      <img src="https://lh3.googleusercontent.com/pw/AM-JKLUogx2-fnb0nJ-JTIOOe8q1s3D6EmF-G6-Div7o0fpXKTMpVe0KyGV8JBwcwSQimHhU-WT4abKom9otCMOdoZqUPHKX1Y-70mhTno2U1cDfsGZyMPcb5eWQcSaoBL4AvFgVpint4wV6QSe7-dH1Tz7I=s748-no?authuser=0" class="raspis_upd_btn">
+
+    </div>
+
+  </div>
+
+  
+
+  <div class="content">
+
+    
+
+    <div style="margin-bottom: 16px;" class="container">
+
+      <div style="display: flex; margin-bottom: 16px; align-items: baseline; justify-content: space-between;">
+
+        <h1 style="margin: auto; display: inline-block;">Расписание</h1>
+
+        <div class="switch-btn-raspis" style="color: white; display: inline-block; vertical-align: middle; padding: 16px; background-color: #2196F3; border-radius: 10px;">пн</div>
+
+      </div>
+
+      
+
+      <div class="list-container large">
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les1" style="display: inline-block; margin: 0;">Урок 1</h2>
+
+            <h2 class="time-txt" id="time1" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les2"  style="display: inline-block; margin: 0;">Урок 2</h2>
+
+            <h2 class="time-txt" id="time2" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les3"  style="display: inline-block; margin: 0;">Урок 3</h2>
+
+            <h2 class="time-txt" id="time3" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les4"  style="display: inline-block; margin: 0;">Урок 4</h2>
+
+            <h2 class="time-txt" id="time4" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les5"  style="display: inline-block; margin: 0;">Урок 5</h2>
+
+            <h2 class="time-txt" id="time5" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les6"  style="display: inline-block; margin: 0;">Урок 6</h2>
+
+            <h2 class="time-txt" id="time6" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les7"  style="display: inline-block; margin: 0;">Урок 7</h2>
+
+            <h2 class="time-txt" id="time7" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+  
+
+        <div class="list-item">
+
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+
+            <h2 id="les8"  style="display: inline-block; margin: 0;">Урок 8</h2>
+
+            <h2 class="time-txt" id="time8" style="display: inline-block; color: rgb(134, 134, 134); margin: 0;">-:-- - -:--</h2>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    
+
+    <div id="about" class="container">
+
+      <h1 style="margin-top: 0;">О schooltime</h1>
+
+      <p>Это веб-версия мобильного приложения schooltime, в которой Вам доступно несколько полезных разделов.</p>
+
+      <h2>Доступ</h2>
+
+      <p>Все разделы на сайте доступны только ученикам и преподователям класса.</p>
+
+      <h2>Разделы</h2>
+
+      <p>В веб-приложении Вам доступны разделы портированные с мобильной версии сервиса: "Новости", "Расписание", "Домашние задания". Раздел "Аккаунт" или же "schooltime ID" не был добавлен в веб-версию. </p>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+
+    <div class="footer_inner">
+
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+        <p>© 2022 Ярослав Спиридонов</p>
+
+        <div class="socials">
+
+          <img src="assets/social_ic/vk.png" alt="" class="soc">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  
+
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+
+    import { getDatabase, ref, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+  
+
+    // Your web app's Firebase configuration
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyB9VevDhS1ZYOLuTDa3V758GOD-KUUOea8",
+
+      authDomain: "school-78eac.firebaseapp.com",
+
+      databaseURL: "https://school-78eac.firebaseio.com",
+
+      projectId: "school-78eac",
+
+      storageBucket: "school-78eac.appspot.com",
+
+      messagingSenderId: "361392127189",
+
+      appId: "1:361392127189:web:3bdf0c9fd9dfa0c7e6b65c",
+
+      measurementId: "G-3FB7KZG6CE"
+
+    };
+
+    // Initialize Firebase
+
+    const app = initializeApp(firebaseConfig);
+
+    // Get a reference to the database service
+
+    const db = getDatabase(app);
+
+    const dbRef = ref(getDatabase());
+
+
+
+    let current_data = 0
+
+    let days = ['пн','вт','ср','чт','пт','сб','вс']
+
+    let schedule_all
+
+
+
+    //objects
+
+    let les1 = document.querySelector('#les1')
+
+    let time1 = document.querySelector('#time1')
+
+
+
+    let les2 = document.querySelector('#les2')
+
+    let time2 = document.querySelector('#time2')
+
+
+
+    let les3 = document.querySelector('#les3')
+
+    let time3 = document.querySelector('#time3')
+
+
+
+    let les4 = document.querySelector('#les4')
+
+    let time4 = document.querySelector('#time4')
+
+    
+
+    let les5 = document.querySelector('#les5')
+
+    let time5 = document.querySelector('#time5')
+
+
+
+    let les6 = document.querySelector('#les6')
+
+    let time6 = document.querySelector('#time6')
+
+
+
+    let les7 = document.querySelector('#les7')
+
+    let time7 = document.querySelector('#time7')
+
+
+
+    let les8 = document.querySelector('#les8')
+
+    let time8 = document.querySelector('#time8')
+
+
+
+    let btn = document.querySelector('.switch-btn-raspis')
+
+    let update_timer_btn = document.querySelector('.raspis_upd_btn')
+
+
+
+    let current_les = document.querySelector('#current_les')
+
+    let time_left = document.querySelector('#time_left')
+
+
+
+    // days
+
+    let md = {}
+
+    let vt = {}
+
+    let sr = {}
+
+    let ch = {}
+
+    let pt = {}
+
+    let sb = {}
+
+    var nowtime = new Date();
+
+
+
+    let date = new Date()
+
+    let cur_day = ((date.getDay() + 6) % 7);
+
+    let now_time
+
+
+
+    current_data = cur_day
+
+    let current_day = cur_day
+
+
+
+    btn.textContent = days[current_data]
+
+    
+
+    function update_raspis() {
+
+      cur_day = ((date.getDay() + 6) % 7);
+
+
+
+      // сброс
+
+      les1.textContent = '-'
+
+      les2.textContent = '-'
+
+      les3.textContent = '-'
+
+      les4.textContent = '-'
+
+      les5.textContent = '-'
+
+      les6.textContent = '-'
+
+      les7.textContent = '-'
+
+      les8.textContent = '-'
+
+      
+
+      time1.textContent = '-:-- - -:--'
+
+      time2.textContent = '-:-- - -:--'
+
+      time3.textContent = '-:-- - -:--'
+
+      time4.textContent = '-:-- - -:--'
+
+      time5.textContent = '-:-- - -:--'
+
+      time6.textContent = '-:-- - -:--'
+
+      time7.textContent = '-:-- - -:--'
+
+      time8.textContent = '-:-- - -:--'
+
+
+
+      les1.style.color = '#000000'
+
+      les2.style.color = '#000000'
+
+      les3.style.color = '#000000'
+
+      les4.style.color = '#000000'
+
+      les5.style.color = '#000000'
+
+      les6.style.color = '#000000'
+
+      les7.style.color = '#000000'
+
+      les8.style.color = '#000000'
+
+
+
+      // получаем всё расписание
+
+      get(child(dbRef, `schedule`)).then((snapshot) => {
+
+        if (snapshot.exists()) {
+
+          console.log(snapshot.val());
+
+
+
+          schedule_all = snapshot.val();
+
+          let keys = Object.keys(schedule_all);
+
+
+
+          // get times & names
+
+          let times = []
+
+          let names = []
+
+          let worktime
+
+
+
+          let curr_time
+
+          let les_start
+
+          let les_end
+
+
+
+          let next_ls
+
+
+
+          function update_raspis_timer() {
+
+            current_les.textContent = 'Внеурочное время';
+
+            time_left.textContent = '';
+
+            time_left.style.display = 'none'
+
+
+
+            console.log(cur_day);
+
+
+
+            times = schedule_all[keys[cur_day]]['time'];
+
+            times = JSON.parse(times);
+
+
+
+            let n_time = new Date();
+
+
+
+            now_time = Number(n_time.getHours()) * 60 + Number(n_time.getMinutes())
+
+            
+
+            for (let i = 0; i < times.length; i++) {
+
+              curr_time = times[i]
+
+              les_start = Number(curr_time.slice(0, curr_time.indexOf('-')))
+
+              les_end = Number(curr_time.slice(curr_time.indexOf('-') + 1, curr_time.length))
+
+
+
+              if (i != (times.length - 1)) {
+
+                next_ls = times[i+1].slice(0, times[i+1].indexOf('-'))
+
+                if (((les_start < now_time) || (les_start == now_time)) && (next_ls > now_time)) {
+
+                  current_les.textContent = 'Перемена'
+
+                  time_left.textContent = ('(' + (next_ls - now_time) + ' мин осталось)')
+
+                  time_left.style.display = 'inline'
+
+                }
+
+              }
+
+
+
+              if (((les_start < now_time) || (les_start == now_time)) && (les_end > now_time)) {
+
+                current_les.textContent = ('Идет ' + (i + 1) + ' урок')
+
+                time_left.textContent = ('(' + (les_end - now_time) + ' мин осталось)')
+
+                time_left.style.display = 'inline'
+
+              }
+
+            }
+
+          }
+
+
+
+          update_raspis_timer()
+
+          
+
+          times = schedule_all[keys[current_data]]['time'];
+
+          names = schedule_all[keys[current_data]]['names'];
+
+
+
+          times = JSON.parse(times);
+
+          names = JSON.parse(names);
+
+
+
+          let hour1
+
+          let hour2
+
+          let min1
+
+          let min2
+
+
+
+          let mins1
+
+          let mins2
+
+
+
+          function text_apply(les, time, pos) {
+
+            worktime = times[pos];
+
+            les.textContent = names[pos];
+
+            mins1 = Number(worktime.slice(0, worktime.indexOf('-')));
+
+            mins2 = Number(worktime.slice(worktime.indexOf('-') + 1, worktime.length));
+
+            hour1 = Math.floor(mins1 / 60);
+
+            hour2 = Math.floor(mins2 / 60);
+
+            min1 = mins1 - (hour1 * 60);
+
+            min2 = mins2 - (hour2 * 60);
+
+
+
+            if (min1.toString().length == 1) {
+
+              min1 = ('0' + min1)
+
+            }
+
+            if (min2.toString().length == 1) {
+
+              min2 = ('0' + min2)
+
+            }
+
+
+
+            time.textContent = (hour1 + ':' + min1 + ' - ' + hour2 + ':' + min2)
+
+          }
+
+
+
+          // применение
+
+          if (times.length >= 1) {
+
+            text_apply(les1, time1, 0);
+
+          }
+
+          if (times.length >= 2) {
+
+            text_apply(les2, time2, 1);
+
+          }
+
+          if (times.length >= 3) {
+
+            text_apply(les3, time3, 2);
+
+          }
+
+          if (times.length >= 4) {
+
+            text_apply(les4, time4, 3);
+
+          }
+
+          if (times.length >= 5) {
+
+            text_apply(les5, time5, 4);
+
+          }
+
+          if (times.length >= 6) {
+
+            text_apply(les6, time6, 5);
+
+          }
+
+          if (times.length >= 7) {
+
+            text_apply(les7, time7, 6);
+
+          }
+
+          if (times.length >= 8) {
+
+            text_apply(les8, time8, 7);
+
+          }
+
+          
+
+        } else {
+
+          console.log("No data available");
+
+        }
+
+      }).catch((error) => {
+
+        console.error(error);
+
+      });
+
+    }
+
+
+
+    update_raspis();
+
+
+
+    btn.addEventListener('click', function () {
+
+      if (current_data == 6) {
+
+        current_data = 0;
+
+      }
+
+      else {
+
+        current_data += 1;
+
+      };
+
+      btn.textContent = days[current_data];
+
+      update_raspis();
+
+    });
+
+    
+
+    update_timer_btn.addEventListener('click', function () {
+
+            update_raspis();
+
+          });
+
+    
+
+  </script>
+
+  <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
+
+  <script>
+    let banner = document.querySelector('.bottom_banner');
+    let close = document.querySelector('.banner_close');
+    close.addEventListener('click', function () {
+      banner.style.display = 'none';
+    });
+  </script>
+
+  <script src="script.js"></script>
+
+</html>
