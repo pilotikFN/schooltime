@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsPage</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="news">
+        <div id="first" class="post">
+          <a href="#" class="post_img"></a>
+          <div class="post_inner">
+            <h2 class="post_title">Загрузка...</h2>
+            <p class="post_text">Новости скоро появятся</p>
+          </div>
+        </div>
+    </div>
+
+    <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+
+    <script>
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4bJzdgnKMrBx2KGK5AJ9iZkRW0L6xmEg",
+            authDomain: "arboris-for.firebaseapp.com",
+            databaseURL: "https://arboris-for.firebaseio.com",
+            projectId: "arboris-for",
+            storageBucket: "arboris-for.appspot.com",
+            messagingSenderId: "633460729496",
+            appId: "1:633460729496:web:b8de024437f3071b6312ed",
+            measurementId: "G-X9SV2K0NTJ"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = firebase.database();
+        const worksRef = db.ref('news');
+
+        function inIframe () {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        }
+
+        if (!inIframe()) {
+            // logic
+            document.body.style.display = 'none';
+        }
+
+        function dict_reverse(obj) {
+            new_obj = {}
+            rev_obj = Object.keys(obj).reverse();
+            rev_obj.forEach(function(i) { 
+                new_obj[i] = obj[i];
+            })
+            return new_obj;
+        }
+
+        function getNews() {
+
+            // Post
+            let image = document.querySelector(".post_img");
+            let post = document.querySelector(".post");
+            let title = document.querySelector(".post_title");
+            let text = document.querySelector(".post_text");
+
+            worksRef.once('value')
+            .then(function(snapshot) {
+                let data = dict_reverse(snapshot.val());
+                let keys = Object.keys(data);
+                
+                let last = post;
+
+                for (let pos = 0; pos < keys.length; pos++) {
+                    let postData = data[keys[pos]];
+                    if (postData['recipient_id'] == localStorage['user_classId'] || postData['recipient_id'] == '' || postData['recipient_id'] == localStorage['user_school']) {
+                        // new post
+                        let elem = last;
+                        let clone = elem.cloneNode(true);
+                        clone.id = 'workElem' + pos.toString();
+                        last.after(clone);
+                        last = clone;
+
+                        image = clone.querySelector(".post_img");
+                        post = clone.querySelector(".post");
+                        title = clone.querySelector(".post_title");
+                        text = clone.querySelector(".post_text");
+
+                        title.textContent = postData['title'];
+                        text.textContent = postData['massage'];
+
+                        if (postData['image'] != '') {
+                            image.style.display = 'block';
+                            image.style.backgroundImage = `url('${postData['image']}')`;
+                            image.href = postData['image'];
+                        } else {
+                            image.style.display = 'none';
+                            image.style.backgroundImage = `none`;
+                            image.href = '';
+                        }
+                    }
+                }
+
+                document.querySelector('#first').remove();
+            });
+        }
+
+        getNews();
+        
+    </script>
+</body>
+</html>

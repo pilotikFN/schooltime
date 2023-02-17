@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>schooltime | всё для школы</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/logo/sc_logo_min.png" type="">
+
+</head>
+<body>
+    <div class="backside">
+        <div class="form">
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                <img style="height: 30px;" src="../assets/logo/sc_logo_min.png" alt="">
+                <h2 style="margin: 0;">schooltime</h2>
+                <p>| Вход</p>
+           </div>
+           <div class="form_content">
+                <label class="textInputLabel" for="class_inp">Логин / email</label>
+                <input id="login" mozactionhint="send" type="text" class="textInput">
+                <label class="textInputLabel" for="class_inp">Пароль</label>
+                <input id="password" mozactionhint="send" type="text" class="textInput">
+                <p id="error_label" style="color: red; visibility: hidden; transition: all .3s;">Неправильный логин или пароль</p>
+            </div>
+            <div id="nextBtn" class="formNextBtn">Готово</div>
+        </div>
+    </div>
+
+    <script src="../cookieslib/cookie.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4bJzdgnKMrBx2KGK5AJ9iZkRW0L6xmEg",
+            authDomain: "arboris-for.firebaseapp.com",
+            databaseURL: "https://arboris-for.firebaseio.com",
+            projectId: "arboris-for",
+            storageBucket: "arboris-for.appspot.com",
+            messagingSenderId: "633460729496",
+            appId: "1:633460729496:web:b8de024437f3071b6312ed",
+            measurementId: "G-X9SV2K0NTJ"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = firebase.database();
+        const worksRef = db.ref('users');
+
+        const auth = firebase.auth();
+
+        function reg(log, pass) {
+            let login = log;
+            let password = pass;
+
+            worksRef.once('value')
+            .then(function(snapshot) {
+                let data = snapshot.val();
+                let keys = Object.keys(data);
+
+                let userData
+                
+                for (let i=0; i < keys.length; i++) {
+                    if (login == data[keys[i]]['email'] && password == data[keys[i]]['password']) {
+                        userData = data[keys[i]];
+                        console.log(userData);
+
+                        localStorage['user_authorized'] = true;
+                        localStorage['user_email'] = userData['email'];
+                        localStorage['user_password'] = userData['password'];
+                        localStorage['user_classId'] = userData['classId'];
+                        localStorage['user_token'] = userData['token'];
+                        localStorage['user_type'] = userData['type'];
+                        localStorage['user_name'] = userData['name'];
+                        localStorage['user_image'] = userData['icon'];
+                    }
+                }
+                
+                if (userData == undefined) { document.getElementById('error_label').style.visibility = 'visible'; } else {
+                    window.open('../app', '_self')
+                }
+            });
+        }
+
+        let nextBtn = document.getElementById('nextBtn');
+
+        function labelHide() {
+            document.getElementById('error_label').style.visibility = 'hidden';
+        }
+        
+        document.getElementById('login').addEventListener('input', labelHide);
+        document.getElementById('password').addEventListener('input', labelHide);
+        nextBtn.addEventListener('click', function () {
+            reg(document.getElementById('login').value.trim(), document.getElementById('password').value.trim())
+        });
+
+        if (localStorage['user_authorized'] == 'true') {
+            reg(localStorage['user_email'], localStorage['user_password']);
+        }
+    </script>
+</body>
+</html>

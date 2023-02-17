@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable='no'">
+    <title>schooltime</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../assets/logo/sc_logo_min.png" type="">
+
+</head>
+<body>
+    <div class="blockpage">
+        <div class="blockpage_inner"></div>
+    </div>
+
+    <div class="topMenuBack"></div>
+
+    <div class="topMenu">
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        ">
+            <div class="profilePhoto"></div>
+            <div>
+                <h3 id="profileUserName" style="line-height: 1.1;">Имя фамилия</h3>
+                <p id="profileRole">Роль пользователя</p>
+            </div>
+            <div id="exitBtn" style="
+                width: 35px; height: 35px;
+                background: url('../assets/gui/exit_ic.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            ">
+            </div>
+        </div>
+        <div class="coolLinks">
+            <a href="../about" class="coolLink">О проекте</a>
+            <a href="../developers" class="coolLink" style="background: #fffaba;">Создатели</a>
+            <a href="../support" class="coolLink" style="background: #caffba;">Поддержка</a>
+        </div>
+    </div>
+
+    <div class="backpage">
+        <div class="header">
+            <img style="height: 30px; margin-right: 10px;" src="../assets/gui/account_ic.png" alt="">
+            <h2 id="pageTitle">Главная</h2>
+        </div>
+
+        <iframe seamless="" scrolling="yes" marginheight="0" frameborder="no" src="../pages/main.html" class="content"></iframe>
+        
+        <div class="bottomNav">
+            <div id="main" class="navBtn selected"></div>
+            <div id="news" class="navBtn"></div>
+            <div id="hw" class="navBtn"></div>
+            <div id="schedule" class="navBtn"></div>
+        </div>
+    </div>
+
+    <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js "></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4bJzdgnKMrBx2KGK5AJ9iZkRW0L6xmEg",
+            authDomain: "arboris-for.firebaseapp.com",
+            databaseURL: "https://arboris-for.firebaseio.com",
+            projectId: "arboris-for",
+            storageBucket: "arboris-for.appspot.com",
+            messagingSenderId: "633460729496",
+            appId: "1:633460729496:web:b8de024437f3071b6312ed",
+            measurementId: "G-X9SV2K0NTJ"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = firebase.database();
+        const worksRef = db.ref('users');
+
+        let userData
+
+        let mainBtn = document.getElementById('main');
+        let newsBtn = document.getElementById('news');
+        let hwBtn = document.getElementById('hw');
+        let scheduleBtn = document.getElementById('schedule');
+
+        let pageTitle = document.getElementById('pageTitle');
+
+        let content = document.querySelector('.content');
+
+        let pages = ['main', 'news', 'hw', 'schedule'];
+        let pagesName = ['Главная', 'Новости', 'Домашка', 'Расписание'];
+
+        // ProfileView
+        let header = document.querySelector('.header');
+        let topMenu = document.querySelector('.topMenu');
+        let topMenuBack = document.querySelector('.topMenuBack');
+        let profPhoto = document.querySelector('.profilePhoto');
+        let userName = document.querySelector('#profileUserName');
+        let userRole = document.querySelector('#profileRole');
+        let exitBtn = document.getElementById('exitBtn');
+
+        let backpage = document.querySelector('.backpage');
+
+        function roleToText(role) {
+            switch (role) {
+                case "student":
+                    return 'Ученик'
+                    break
+                case "teacher":
+                    return 'Учитель'
+                    break
+                case "admin":
+                    return 'Администратор'
+                    break
+            }
+        }
+
+        function topMenuOpen() {
+            topMenu.style.transform = `translateY(0)`;
+            topMenuBack.style.backdropFilter = 'blur(20px)';
+            topMenuBack.style.webkitBackdropFilter = 'blur(20px)';
+            backpage.style.transform = 'scale(0.92)';
+            topMenuBack.style.visibility = 'visible';
+        }
+
+        function topMenuClose() {
+            topMenu.style.transform = `translateY(-100%)`;
+            topMenuBack.style.backdropFilter = 'blur(0)';
+            topMenuBack.style.webkitBackdropFilter = 'blur(0)';
+            backpage.style.transform = 'scale(1)';
+            topMenuBack.style.visibility = 'hidden';
+        }
+
+        function changePage(pos) {
+            smoothly(pageTitle, 'textContent', pagesName[pos]);
+            smoothly(content, 'src', '../pages/'+pages[pos]+'.html');
+
+            mainBtn.classList.remove('selected');
+
+            newsBtn.classList.remove('selected');
+
+            hwBtn.classList.remove('selected');
+
+            scheduleBtn.classList.remove('selected');
+
+            switch (pos) {
+                case (0):
+                    mainBtn.classList.add('selected');
+                    break
+                case (1):
+                    newsBtn.classList.add('selected');
+                    break
+                case (2):
+                    hwBtn.classList.add('selected');
+                    break
+                case (3):
+                    scheduleBtn.classList.add('selected');
+                    break
+            }
+        }
+
+        function appLogic() {
+            mainBtn.addEventListener('click', function () {
+                changePage(0);
+            });
+            newsBtn.addEventListener('click', function () {
+                changePage(1);
+            });
+            hwBtn.addEventListener('click', function () {
+                changePage(2);
+            });
+            scheduleBtn.addEventListener('click', function () {
+                changePage(3);
+            });
+
+            // Profile SetUp
+            if (localStorage['user_image'] != "") {
+                profPhoto.style.background = `url("${localStorage['user_image']}")`;
+            } else {
+                profPhoto.style.background = `#2196F3`;
+            }
+            userName.textContent = localStorage['user_name'];
+            userRole.textContent = roleToText(localStorage['user_type']);
+
+            exitBtn.addEventListener('click', function () {
+                localStorage.clear();
+                window.open('../', '_self');
+            });
+
+            header.addEventListener('click', topMenuOpen);
+            topMenuBack.addEventListener('click', topMenuClose);
+        }
+
+        function reg(log, pass) {
+            let login = log
+            let password = pass
+
+            worksRef.once('value')
+            .then(function(snapshot) {
+                let data = snapshot.val();
+                let keys = Object.keys(data);
+                
+                for (let i=0; i < keys.length; i++) {
+                    if (login == data[keys[i]]['email'] && password == data[keys[i]]['password']) {
+                        userData = data[keys[i]];
+                        console.log(userData);
+
+                        localStorage['user_authorized'] = true;
+                        localStorage['user_email'] = userData['email'];
+                        localStorage['user_password'] = userData['password'];
+                        localStorage['user_classId'] = userData['classId'];
+                        localStorage['user_token'] = userData['token'];
+                        localStorage['user_type'] = userData['type'];
+                        localStorage['user_name'] = userData['name'];
+
+                        db.ref('classes').once('value').then(function(snapshot) {
+                            let cdata = snapshot.val();
+                            let ckeys = Object.keys(cdata);
+
+                            for (let t = 0; t < ckeys.length; t++) {
+                                let classData = cdata[ckeys[t]];
+                                if (classData['classId'] == localStorage['user_classId']) {
+                                    localStorage['user_className'] = classData['name'];
+                                    console.log(classData['name']);
+                                }
+                            }
+                        });
+
+                        document.querySelector('.blockpage').style.opacity = '0';
+                        document.querySelector('.blockpage').style.visibility = 'hidden';
+                        appLogic();
+                    }
+                }
+            });
+        }
+
+        if (localStorage['user_authorized'] == 'true') {
+            reg(localStorage['user_email'], localStorage['user_password']);
+        } else {
+            window.open('../mono', '_self');
+        }
+    </script>
+</body>
+</html>

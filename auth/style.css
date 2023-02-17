@@ -1,0 +1,48 @@
+/* Задний фон */
+.backside {
+    width: 100vw;
+    height: 100vh;
+    padding: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #D7E0FF;
+}
+
+/* Форма заполнения */
+.form {
+    max-width: 500px; width: 100%;
+    max-height: 400px; height: 100%;
+    position: relative;
+
+    padding: 30px;
+
+    background: #fff;
+    border-radius: 20px;
+}
+
+.form_content {
+    width: 100%;
+}
+
+.formNextBtn {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+
+    color: white;
+    background: #2196F3;
+    border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
+    outline: 0px solid #77c4ff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 35px;
+
+    transition: all .2s;
+}

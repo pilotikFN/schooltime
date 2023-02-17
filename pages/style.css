@@ -1,0 +1,144 @@
+body {
+    padding: 25px;
+    background-color: #f5f5f5;
+}
+
+/* Container */
+.cont {
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+}
+
+/* News */
+.post {
+    background: #fff;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 0px auto 16px;
+    cursor: pointer;
+
+    box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.12);
+}
+
+.post_img {
+    height: 25vh;
+    background: center center / 110% no-repeat rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 15px 15px 0px 0px;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.post_inner {
+    padding: 20px;
+}
+
+.post_text {
+    margin: 0px;
+    white-space: pre-wrap;
+}
+
+/* Hw Calendar */
+.cal_root {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.cal_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: 60px;
+    cursor: pointer;
+}
+
+.cal_counter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cal_altday {
+    margin: 0px;
+}
+
+/* Hws */
+.invisible {
+    display: none;
+}
+
+.hw_post {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    position: relative;
+}
+
+.post_ic {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.hw_post_task {
+    margin: 2px 0px 0px;
+    white-space: pre-wrap;
+}
+
+.hw_checkbox {
+    position: absolute;
+    top: -4.5px;
+    right: -4.5px;
+    appearance: none;
+    background-color: rgb(255, 255, 255);
+    margin: 0px;
+    font: inherit;
+    color: currentcolor;
+    width: 1.25em;
+    height: 1.25em;
+    border: 0.13em solid rgb(167, 167, 167);
+    border-radius: 25px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.hw_checkbox::before {
+    content: "";
+    background-color: rgb(33, 150, 243);
+    border-radius: 90px;
+    width: 0.85em;
+    height: 0.85em;
+    transform: scale(0);
+    transition: transform 120ms ease-in-out 0s;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+.hw_checkbox:checked::before {
+    transform: scale(1);
+}
+
+/* My Class */
+.myClass {
+    background: #2196f3;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

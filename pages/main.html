@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cont myClass">
+        <h1 id="my_class_name" style="margin: 0;">7В</h1>
+        <div>
+            <p style="margin: 0; margin-bottom: 5px;">Код класса</p>
+            <p id="my_class_id" style="margin: 0; opacity: 0.8;">0000000</p>
+        </div>
+    </div>
+
+    <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4bJzdgnKMrBx2KGK5AJ9iZkRW0L6xmEg",
+            authDomain: "arboris-for.firebaseapp.com",
+            databaseURL: "https://arboris-for.firebaseio.com",
+            projectId: "arboris-for",
+            storageBucket: "arboris-for.appspot.com",
+            messagingSenderId: "633460729496",
+            appId: "1:633460729496:web:b8de024437f3071b6312ed",
+            measurementId: "G-X9SV2K0NTJ"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = firebase.database();
+        const worksRef = db.ref('users');
+
+        const auth = firebase.auth();
+
+        function inIframe () {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        }
+
+        if (!inIframe()) {
+            // logic
+            document.body.style.display = 'none';
+        } else {
+            document.getElementById('my_class_name').textContent = localStorage['user_className'];
+            document.getElementById('my_class_id').textContent = localStorage['user_classId'];
+        }
+
+    </script>
+</body>
+</html>

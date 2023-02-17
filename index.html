@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>schooltime | всё для школы</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/logo/sc_logo_min.png" type="">
+
+    <style>
+        .download_btn {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: calc(100% / 3);
+            
+            cursor: pointer;
+
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dialogBack">
+        <div class="dialog">
+            <h2 id="dialTitle">Скачать для</h2>
+            <div id="downBtns" style="
+                display: flex;
+                gap: 15px;
+                align-items: center;
+            ">
+                <a id="andrDown" href="#" class="download_btn" style="background: #3DDA84;">
+                    Android
+                </a>
+                <a href="downNotSupp.html" class="download_btn" style="background: #3dabda;">
+                    Windows
+                </a>
+                <a href="downNotSupp.html" class="download_btn" style="background: #979797;">
+                    iOS
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="inner">
+           <div style="display: flex; gap: 10px; align-items: center;">
+                <img style="height: 30px;" src="assets/logo/sc_logo_min.png" alt="">
+                <h2 style="margin: 0;">schooltime</h2>
+           </div>
+           <img style="height: 30px;" class="menu_btn" src="assets/gui/menu.png" alt="меню">
+           <div class="header_btns">
+                <a href="#" class="header_btn">Скачать</a>
+                <a href="auth/" class="header_btn">Вход</a>
+                <a href="#" class="header_btn">О проекте</a>
+           </div>
+        </div>   
+   </div>
+    <div class="intro">
+        <div class="inner">
+            <div class="slices">
+                <div class="slice">
+                    <h1 class="bigH">schooltime</h1>
+                    <p>Место, которое упрощает обучение в школе. С помощью проекта можно узнать все, ранее добавленные домашние задания, посмотреть расписание, увидеть время до конца урока, всегда быть в курсе новостей и многое другое...</p>
+                    <div id="downloadBtn" style="margin-top: 25px; margin-bottom: 10px;" class="blueBtn">Установить</div>
+                    <a href="auth/" style="background: none; text-decoration: underline;">Продолжить на сайте</a>
+                </div>
+                <div style="
+                    background: url(assets/3d_logo/звезда.png);
+                    background-size: contain;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                " class="slice logo">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tutor" class="cont" style="
+        background: url(assets/backgrounds/background1.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    ">
+        <div class="inner plus">
+            <div class="plus_img" style="
+                background-image: url(assets/3d_imgs/phone_hw.png);
+            "></div>
+            <div class="plus_text">
+                <h2>Домашние задания</h2>
+                <p>Просматривайте все добавленные домашние задания на одной странице</p>
+                <a class="textBtn" href="#">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutor" class="cont" style="
+        background: #ffffff;
+    ">
+        <div class="inner plus reverse">
+            <div class="plus_text">
+                <h2>Подробное расписание</h2>
+                <p>Получите доступ к расписанию на всю неделю</p>
+                <a class="textBtn" href="#">Подробнее</a>
+            </div>
+            <div class="plus_img" style="
+                background-image: url(assets/3d_imgs/laptop_schedule.png);
+            "></div>
+        </div>
+    </div>
+
+    <div id="tutor" class="cont" style="
+        background: url(assets/backgrounds/background2.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    ">
+        <div class="inner plus">
+            <div class="plus_img" style="
+                background-image: url(assets/3d_imgs/server.png);
+            "></div>
+            <div class="plus_text">
+                <h2>Место в хранилище каждому классу</h2>
+                <p>Делитесь работами, дистанционными заданиями, файлами прямо в schooltime</p>
+                <a class="textBtn" href="#">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutor" class="cont" style="
+        background: url(assets/backgrounds/background3.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    ">
+        <div class="inner plus reverse">
+            <div class="plus_text">
+                <h2>Новости отдельных школ / классов</h2>
+                <p>Получайте новости от своей школы или класса</p>
+                <a class="textBtn" href="#">Подробнее</a>
+            </div>
+            <div class="plus_img" style="
+                background-image: url(assets/3d_imgs/laptop_schedule.png);
+            "></div>
+        </div>
+    </div>
+
+    <div class="cont" style="
+    background: #ffffff;
+    z-index: 1;
+    ">
+        <div style="text-align: right;" class="inner">
+            <h2>Ярослав Спиридонов</h1>
+            <p>2023 г.</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js "></script>
+
+    <script src="../cookieslib/cookie.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js "></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        import { getDatabase, ref, onValue, child, get, push, set } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4bJzdgnKMrBx2KGK5AJ9iZkRW0L6xmEg",
+            authDomain: "arboris-for.firebaseapp.com",
+            databaseURL: "https://arboris-for.firebaseio.com",
+            projectId: "arboris-for",
+            storageBucket: "arboris-for.appspot.com",
+            messagingSenderId: "633460729496",
+            appId: "1:633460729496:web:b8de024437f3071b6312ed",
+            measurementId: "G-X9SV2K0NTJ"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        // Get a reference to the database service
+        const db = firebase.database();
+        const worksRef = db.ref('app_status');
+
+        function getDownloadLink() {
+            document.getElementById('downBtns').style.visibility = 'hidden';
+            document.getElementById('dialTitle').textContent = 'Скачивание вот-вот начнется...';
+            worksRef.once('value')
+            .then(function(snapshot) {
+                console.log(snapshot.val());
+                let dataa = snapshot.val();
+                let data = dataa['newest_update'];
+                console.log(data);
+                window.open(data['url'], '_blank');
+            })
+        }
+
+        // Dialog download
+        let downloadBtn = document.querySelector('#downloadBtn');
+        let dialog = document.querySelector('.dialog');
+        let dialogBack = document.querySelector('.dialogBack');
+
+        // Menu
+        let menuBtn = document.querySelector('.menu_btn');
+        
+        // Android download
+        document.querySelector('#andrDown').addEventListener('click', getDownloadLink);
+
+        function dialogOpen() {
+            dialogBack.style.visibility = "visible";
+            dialog.style.transform = "scale(1)";
+            dialogBack.style.background = "rgba(0, 0, 0, 0.430)";
+            dialogBack.style.backdropFilter = "blur(10px)";
+            dialogBack.style.webkitBackdropFilter = "blur(10px)";
+        }
+
+        function dialogClose() {
+            dialogBack.style.webkitBackdropFilter = "blur(0px)";
+            dialogBack.style.backdropFilter = "blur(0px)";
+            dialogBack.style.background = "rgba(0, 0, 0, 0.0)";
+            dialog.style.transform = "scale(0)";
+            dialogBack.style.visibility = "hidden";
+        }
+
+        downloadBtn.addEventListener('click', function () {
+            dialogOpen();
+        });
+
+        dialogBack.addEventListener('click', function () {
+            dialogClose();
+        });
+    </script>
+</body>
+</html>
