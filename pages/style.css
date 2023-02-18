@@ -142,3 +142,42 @@ body {
     align-items: center;
     gap: 15px;
 }
+
+/* Schedule */
+.schedule_timer {
+    padding: 12px;
+    border: solid #929292 3px;
+    border-radius: 10px;
+}
+
+.schedule_timer h3, p {
+    margin: 0;
+}
+
+/* Schedule Calendar */
+.cont#schedule_cal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.sch_cal_btn {
+    height: 100%;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-weight: 700;
+}
+
+.sch_cal_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sch_cal_info h3, p {
+    margin: 0;
+}
