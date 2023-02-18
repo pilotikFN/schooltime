@@ -23,13 +23,13 @@
             align-items: center;
             gap: 20px;
         ">
-            <div class="profilePhoto"></div>
+            <div id="profPhoto" class="profilePhoto"></div>
             <div>
                 <h3 id="profileUserName" style="line-height: 1.1;">Имя фамилия</h3>
                 <p id="profileRole">Роль пользователя</p>
             </div>
             <div id="exitBtn" style="
-                width: 35px; height: 35px;
+                width: 40px; height: 40px;
                 background: url('../assets/gui/exit_ic.png');
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -106,7 +106,7 @@
         let header = document.querySelector('.header');
         let topMenu = document.querySelector('.topMenu');
         let topMenuBack = document.querySelector('.topMenuBack');
-        let profPhoto = document.querySelector('.profilePhoto');
+        let profPhoto = document.querySelector('#profPhoto');
         let userName = document.querySelector('#profileUserName');
         let userRole = document.querySelector('#profileRole');
         let exitBtn = document.getElementById('exitBtn');
