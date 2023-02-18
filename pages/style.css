@@ -181,3 +181,18 @@ body {
 .sch_cal_info h3, p {
     margin: 0;
 }
+
+.sch_lesson_name::before {
+    content: '#' attr(index);
+    margin-right: 6px;
+    color: #8f8f8f;
+}
+
+.sch_post .sch_post_lesson h3 { margin: 0; }
+
+.sch_break {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 12px;
+    border: #2196f3 solid 3px;
+}

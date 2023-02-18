@@ -18,6 +18,18 @@
         <div id="sch_cal_btnRight" class="sch_cal_btn">&gt;</div>
     </div>
 
+    <div class="listView">
+        <div class="cont sch_post">
+            <div class="sch_post_lesson">
+               <h3 index="1" class="sch_lesson_name">Название урока</h3>
+               <p class="sch_lesson_time"></p>
+            </div>
+            <div class="sch_break">
+               <p class="sch_break_text">Перемена</p>
+            </div>
+       </div>
+    </div>
+
     <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js "></script>
@@ -45,7 +57,7 @@
         const app = firebase.initializeApp(firebaseConfig);
         // Get a reference to the database service
         const db = firebase.database();
-        const worksRef = db.ref('news');
+        const worksRef = db.ref('schedule');
 
         function inIframe () {
             try {
@@ -53,11 +65,6 @@
             } catch (e) {
                 return true;
             }
-        }
-
-        if (!inIframe()) {
-            // logic
-            document.body.style.display = 'none';
         }
 
         function dict_reverse(obj) {
@@ -68,6 +75,41 @@
             })
             return new_obj;
         }
+
+        function pageLogic() {
+            let listView = document.querySelector('.listView');
+            let post = document.querySelector('.sch_post');
+
+            let scheduleGlob;
+            let classShedule;
+            let classSchSorted;
+            let daysIndexes = ['md','vt','sr','ch','pt','sb','vs'];
+            
+            function getHw() {
+                worksRef.once('value')
+                .then(function(snapshot) {
+                    scheduleGlob = snapshot.val();
+                    classShedule = scheduleGlob[localStorage['user_classId']];
+                    for (let i=0; i < daysIndexes.length; i++) {
+                        let currDay = classShedule[daysIndexes[i]];
+                        
+                        currDay = eval(currDay);
+
+                        let times = currDay['time'];
+                        let names = currDay['names'];
+                        
+                        console.log(times, names);
+                    }
+                });
+            }
+
+            getHw();
+        }
+
+        if (!inIframe()) {
+            // logic
+            document.body.style.display = 'none';
+        } else { pageLogic() }
       
     </script>
 </body>
