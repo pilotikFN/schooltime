@@ -12,7 +12,7 @@
     <div id="schedule_cal" class="cont">
         <div id="sch_cal_btnLeft" class="sch_cal_btn">&lt;</div>
         <div class="sch_cal_info">
-            <h3 id="sch_info_day">Понедельник, xx.xx</h3>
+            <h4 id="sch_info_day">Понедельник, xx.xx</h4>
             <p id="sch_info_altday">Сегодня</p>
         </div>
         <div id="sch_cal_btnRight" class="sch_cal_btn">&gt;</div>
@@ -91,9 +91,9 @@
                     scheduleGlob = snapshot.val();
                     classShedule = scheduleGlob[localStorage['user_classId']];
                     for (let i=0; i < daysIndexes.length; i++) {
-                        let currDay = classShedule[daysIndexes[i]];
-                        
-                        currDay = eval(currDay);
+                        let currDay = classShedule[daysIndexes[i]].replaceAll(`'`, `"`);
+                        console.log(currDay);
+                        currDay = JSON.parse(currDay);
 
                         let times = currDay['time'];
                         let names = currDay['names'];

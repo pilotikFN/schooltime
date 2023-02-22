@@ -146,7 +146,7 @@ body {
 /* Schedule */
 .schedule_timer {
     padding: 12px;
-    border: solid #929292 3px;
+    border: solid #929292 2px;
     border-radius: 10px;
 }
 
@@ -176,6 +176,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .sch_cal_info h3, p {
@@ -194,5 +195,5 @@ body {
     margin-top: 10px;
     border-radius: 10px;
     padding: 12px;
-    border: #2196f3 solid 3px;
+    border: #2196f3 solid 2px;
 }
