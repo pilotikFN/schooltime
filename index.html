@@ -147,6 +147,26 @@
         </div>
     </div>
 
+    <div id="tutor" class="cont" style="
+        background: #ffffff;
+    ">
+        <div class="inner plus reverse">
+            <div class="plus_text">
+                <h2>Проект, который упростит обучение в школе</h2>
+                <p>
+                    Просматривайте домашние задания, расписание, 
+                    делитесь образовательными материалами, файлами,
+                    скачивайте и используйте удобные онлайн-учебники и 
+                    многое другое.
+                </p>
+                <div id="downloadBtn" style="margin-top: 25px; margin-bottom: 10px;" class="blueBtn">Установить</div>
+            </div>
+            <div class="plus_img" style="
+                background-image: url(assets/3d_imgs/sch_logo_3d.png);
+            "></div>
+        </div>
+    </div>
+
     <div class="cont" style="
     background: #ffffff;
     z-index: 1;
@@ -202,7 +222,7 @@
         }
 
         // Dialog download
-        let downloadBtn = document.querySelector('#downloadBtn');
+        let downloadBtn = document.querySelectorAll('#downloadBtn');
         let dialog = document.querySelector('.dialog');
         let dialogBack = document.querySelector('.dialogBack');
 
@@ -228,7 +248,11 @@
             dialogBack.style.visibility = "hidden";
         }
 
-        downloadBtn.addEventListener('click', function () {
+        downloadBtn[0].addEventListener('click', function () {
+            dialogOpen();
+        });
+
+        downloadBtn[1].addEventListener('click', function () {
             dialogOpen();
         });
 

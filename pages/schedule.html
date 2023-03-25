@@ -4,30 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NewsPage</title>
+    <title>SchedulePage</title>
+    
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="style.css">
+
+    <script src="../scripts/themes.js"></script>
 </head>
 <body>
-    <div id="schedule_cal" class="cont">
-        <div id="sch_cal_btnLeft" class="sch_cal_btn">&lt;</div>
-        <div class="sch_cal_info">
-            <h4 id="sch_info_day">Понедельник, xx.xx</h4>
-            <p id="sch_info_altday">Сегодня</p>
+    <div class="cal_root cont_shadow">
+        <div id="left_btn" class="cal_btn hoverclick"></div>
+        <div class="cal_counter">
+          <div class="cal_centbtn" style="text-align: center">
+            <h3 class="cal_day">Четверг, 16.02</h3>
+            <p class="cal_altday">Сегодня</p>
+          </div>
         </div>
-        <div id="sch_cal_btnRight" class="sch_cal_btn">&gt;</div>
+        <div id="right_btn" class="cal_btn hoverclick"></div>
     </div>
 
-    <div class="listView">
-        <div class="cont sch_post">
-            <div class="sch_post_lesson">
-               <h3 index="1" class="sch_lesson_name">Название урока</h3>
-               <p class="sch_lesson_time"></p>
+    <div id="scheduleList">
+        <div id="schedule_post_maket" class="schedule_post invisible cont_shadow selectable">
+            <div>
+                <h4 pos="1" class="schedule_post_subject selectable">Предмет</h4>
+                <p class="schedule_post_time selectable">12:00 - 12:40</p>
             </div>
-            <div class="sch_break">
-               <p class="sch_break_text">Перемена</p>
-            </div>
-       </div>
+        </div>
     </div>
 
     <script src="https://code.s3.yandex.net/web-code/smoothly.js"></script>
@@ -67,6 +69,11 @@
             }
         }
 
+        if (!inIframe()) {
+            // logic
+            document.body.style.display = 'none';
+        }
+
         function dict_reverse(obj) {
             new_obj = {}
             rev_obj = Object.keys(obj).reverse();
@@ -76,40 +83,188 @@
             return new_obj;
         }
 
-        function pageLogic() {
-            let listView = document.querySelector('.listView');
-            let post = document.querySelector('.sch_post');
+        let scheduleList = document.getElementById('scheduleList');
+        let postMaket = document.getElementById('schedule_post_maket');
+        document.getElementById('schedule_post_maket').remove();
+        let clone
 
-            let scheduleGlob;
-            let classShedule;
-            let classSchSorted;
-            let daysIndexes = ['md','vt','sr','ch','pt','sb','vs'];
-            
-            function getHw() {
-                worksRef.once('value')
-                .then(function(snapshot) {
-                    scheduleGlob = snapshot.val();
-                    classShedule = scheduleGlob[localStorage['user_classId']];
-                    for (let i=0; i < daysIndexes.length; i++) {
-                        let currDay = classShedule[daysIndexes[i]].replaceAll(`'`, `"`);
-                        console.log(currDay);
-                        currDay = JSON.parse(currDay);
-
-                        let times = currDay['time'];
-                        let names = currDay['names'];
-                        
-                        console.log(times, names);
-                    }
-                });
-            }
-
-            getHw();
+        function getDate(calendar) {
+            return ('0' + calendar.getDate()).slice(-2) + '.'
+                + ('0' + (calendar.getMonth()+1)).slice(-2);
         }
 
-        if (!inIframe()) {
-            // logic
-            document.body.style.display = 'none';
-        } else { pageLogic() }
+        function getDayName(day) {
+            switch (day) {
+                case 1: 
+                    return 'Понедельник, ' + getDate(date)
+                    break
+                case 2: 
+                    return 'Вторник, ' + getDate(date)
+                    break
+                case 3: 
+                    return 'Среда, ' + getDate(date)
+                    break
+                case 4: 
+                    return 'Четверг, ' + getDate(date)
+                    break
+                case 5: 
+                    return 'Пятница, ' + getDate(date)
+                    break
+                case 6: 
+                    return 'Суббота, ' + getDate(date)
+                    break
+                case 0: 
+                    return 'Воскресенье, ' + getDate(date)
+                    break
+            }
+        }
+
+        let date = new Date();
+        let altday = 0;
+        let localSchedule = [];
+
+        // DATE FUNCTIONS
+        let cal_left_btn = document.querySelector('#left_btn');
+        let cal_right_btn = document.querySelector('#right_btn');
+        let cal_upd_btn = document.querySelector('.cal_centbtn');
+        let cal_day = document.querySelector('.cal_day');
+        let cal_altday = document.querySelector('.cal_altday');
+
+        function updateSchedule() {
+            scheduleList.replaceChildren();
+            let cuurSchedule;
+            let dayName = getDayName(date.getDay());
+            console.log(dayName.slice(0, dayName.indexOf(',')))
+            switch (dayName.slice(0, dayName.indexOf(','))) {
+                case 'Понедельник':
+                    cuurSchedule = localSchedule[0];
+                    break
+                case 'Вторник':
+                    cuurSchedule = localSchedule[1];
+                    break
+                case 'Среда':
+                    cuurSchedule = localSchedule[2];
+                    break
+                case 'Четверг':
+                    cuurSchedule = localSchedule[3];
+                    break
+                case 'Пятница':
+                    cuurSchedule = localSchedule[4];
+                    break
+                case 'Суббота':
+                    cuurSchedule = localSchedule[5];
+                    break
+                case 'Воскресенье':
+                    cuurSchedule = localSchedule[6];
+                    break
+                default:
+                    console.log('error')
+                    break
+            }
+            for (let i = 0; i < cuurSchedule.length; i++) {
+                clone = postMaket.cloneNode(true);
+                clone.id = `sch${i.toString()}`;
+                scheduleList.append(clone);
+                clone.classList.remove('invisible');
+
+                let lesName = clone.querySelector('.schedule_post_subject');
+                let lesTime = clone.querySelector('.schedule_post_time');
+
+                lesName.textContent = cuurSchedule[i]['name'];
+                lesName.setAttribute('pos', i+1);
+
+                let [ lStart, lEnd ] = cuurSchedule[i]['time'].split('-');
+                lStart = parseInt(lStart); lEnd = parseInt(lEnd);
+
+                ls_hours = Math.floor(lStart/60); ls_min = lStart - (Math.floor(lStart/60) * 60); if (ls_min.toString().length == 1) { ls_min = "0" + ls_min.toString() }
+                le_hours = Math.floor(lEnd/60); le_min = lEnd - (Math.floor(lEnd/60) * 60); if (le_min.toString().length == 1) { le_min = "0" + le_min.toString() }
+
+                lesTime.textContent = `${ls_hours}:${ls_min}-${le_hours}:${le_min}`;
+            }
+        }
+
+        function getSchedule() {
+            worksRef.once('value')
+            .then(function(snapshot) {
+                let schedule = snapshot.val();
+                let classSchedule = schedule[localStorage['user_classId']]
+                
+                let days = ["md", "vt", "sr", "ch", "pt", "sb", "vs"]
+
+                for (let d = 0; d < days.length; d++) {
+                    let daysnames = JSON.parse(classSchedule[days[d]].replaceAll("'[", "[").replaceAll("]'", "]"));
+                    console.log(`Кол-во уроков: ${daysnames['names'].length}\nНазвания: ${daysnames['names']}\nТайминг: ${daysnames['time']}`)
+                    let lessons = [];
+                    for (let l = 0; l < daysnames['names'].length; l++) {
+                        lessons.push({
+                            "name": daysnames['names'][l],
+                            "time": daysnames['time'][l],
+                        });
+                    }
+                    localSchedule.push(lessons);
+                }
+                
+                console.log(localSchedule);
+                updateSchedule();
+            });
+        }
+
+        function getFullDate(calendar) {
+            return ('0' + calendar.getDate()).slice(-2) + '.'
+             + ('0' + (calendar.getMonth()+1)).slice(-2) + '.'
+             + calendar.getFullYear();
+        }
+
+        function getAltDay(altday) {
+            console.log('<altday: ' + String(altday) + '>');
+
+            switch (altday) {
+              case 0: 
+                cal_altday.textContent = 'Сегодня';
+                break;
+              case 1: 
+                cal_altday.textContent = 'Завтра';
+                break;
+              case 2: 
+                cal_altday.textContent = 'Послезавтра';
+                break;
+              case -1: 
+                cal_altday.textContent = 'Вчера';
+                break;
+              case -2: 
+                cal_altday.textContent = 'Позавчера';
+                break;
+              default:
+                if (altday < 0) {
+                  cal_altday.textContent = String(altday).slice(String(altday).indexOf('-')+1, String(altday).length) + ' д. назад';
+                }
+                else if (altday > 0) {
+                  cal_altday.textContent = 'Через ' + String(altday) + ' д.';
+                }
+            }
+        }
+
+        Date.prototype.addDay = function(days) {
+            this.setDate(this.getDate() + days);
+            cal_day.textContent = getDayName(date.getDay());
+            altday += days;
+            getAltDay(altday);
+        }
+
+        // First cal set up
+        cal_day.textContent = getDayName(date.getDay());
+
+        cal_left_btn.addEventListener('click', function () {
+            date.addDay(-1);
+            updateSchedule();
+        });
+
+        cal_right_btn.addEventListener('click', function () {
+            date.addDay(1);
+            updateSchedule();
+        });
+
+        getSchedule();
       
     </script>
 </body>
